@@ -34,7 +34,7 @@
                         </h1>
                     </div>
                     <div class="p-8 mt-6 bg-white rounded shadow lg:mt-0">
-                        <table id="projectTable" class="display nowrap stripe hover w-full py-4">
+                        <table id="projectTable" class="responsive nowrap hover w-full py-4">
                             <thead>
                                 <tr>
                                     <th data-priority="1">Name</th>
@@ -45,28 +45,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($projects as $project)
-                                    <tr wire:key="tr-{{ $project->id }}" class="text-left">
-                                        <td class="border-b border-solid border-zinc-400">
-                                            {{ $project->title }}</td>
-                                        <td class="border-b border-solid border-zinc-400">
-                                            {{ $project->description }}
-                                        </td>
-                                        <td class="border-b border-solid border-zinc-400">{{ $project->skill }}
-                                        </td>
-                                        <td class="text-center border-b border-solid border-zinc-400">
-                                            {{ $project->created_at->format('Y.m.d') }}</td>
-                                        <td class="text-center border-b border-solid border-zinc-400">
-                                            <i class="fas fa-edit text-blue-300 hover:text-blue-600 cursor-pointer"
-                                                wire:key="edit-{{ $project->id }}"
-                                                wire:click="edit({{ $project->id }})"></i>
-                                            <i class="fas fa-times text-red-300 hover:text-red-600 pl-2 cursor-pointer"
-                                                wire:key="delete-{{ $project->id }}"
-                                                wire:click="remove({{ $project->id }})"
-                                                wire:confirm="Are you want to delete this project?"></i>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                @if (!empty($projects))
+                                    @foreach ($projects as $project)
+                                        <tr wire:key="tr-{{ $project->id }}" class="text-left">
+                                            <td class="border-b border-solid border-zinc-400">
+                                                {{ $project->title }}</td>
+                                            <td class="border-b border-solid border-zinc-400">
+                                                {{ $project->description }}
+                                            </td>
+                                            <td class="border-b border-solid border-zinc-400">{{ $project->skill }}
+                                            </td>
+                                            <td class="text-center border-b border-solid border-zinc-400">
+                                                {{ $project->created_at->format('Y.m.d') }}</td>
+                                            <td class="text-center border-b border-solid border-zinc-400">
+                                                <i class="fas fa-edit text-blue-300 hover:text-blue-600 cursor-pointer"
+                                                    wire:key="edit-{{ $project->id }}"
+                                                    wire:click="edit({{ $project->id }})"></i>
+                                                <i class="fas fa-times text-red-300 hover:text-red-600 pl-2 cursor-pointer"
+                                                    wire:key="delete-{{ $project->id }}"
+                                                    wire:click="remove({{ $project->id }})"
+                                                    wire:confirm="Are you want to delete this project?"></i>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -75,39 +77,40 @@
         </div>
     </div>
 
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    @push('scripts')
+        <!-- jQuery -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-    <!--Datatables -->
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.jqueryui.js"></script>
-    <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
-    <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.jqueryui.js"></script>
+        <!--Datatables -->
+        <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+        <script src="https://cdn.datatables.net/2.0.8/js/dataTables.jqueryui.js"></script>
+        <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+        <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.jqueryui.js"></script>
 
+        <script>
+            $(document).ready(function() {
+                var table = $('#projectTable').DataTable({
+                    responsive: true,
+                    paging: true, // Enable pagination
+                    searching: true, // Enable search functionality
+                    ordering: true, // Enable column ordering
+                    info: true, // Show table information
+                    lengthChange: true, // Allow user to change page length
+                    pageLength: 10, // Default number of rows per page
+                    autoWidth: false, // Disable auto column width calculation
+                });
 
-    <script>
-        $(document).ready(function() {
-            var table = $('#projectTable').DataTable({
-                responsive: true,
-                paging: true, // Enable pagination
-                searching: true, // Enable search functionality
-                ordering: true, // Enable column ordering
-                info: true, // Show table information
-                lengthChange: true, // Allow user to change page length
-                pageLength: 10, // Default number of rows per page
-                autoWidth: false, // Disable auto column width calculation
+                // Reinitialize Livewire after DataTables has finished rendering
+                table.on('draw', function() {
+                    Livewire.rescan();
+                });
+
+                // Listen for Livewire event to redraw DataTable
+                Livewire.on('projectDeleted', () => {
+                    table.draw();
+                });
             });
-
-            // Reinitialize Livewire after DataTables has finished rendering
-            table.on('draw', function() {
-                Livewire.rescan();
-            });
-
-            // Listen for Livewire event to redraw DataTable
-            Livewire.on('projectDeleted', () => {
-                table.draw();
-            });
-        });
-    </script>
+        </script>
+    @endpush
 </section>

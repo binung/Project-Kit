@@ -57,11 +57,13 @@
 <body class="font-sans leading-normal tracking-normal">
     <livewire:layout.navigation />
     <div class="flex flex-col md:flex-row">
-        <livewire:layout.sidebar />
+        {{-- <livewire:layout.sidebar /> --}}
+        @include('livewire.layout.sidebar')
         {{ $slot }}
     </div>
 
     @livewireScripts
+    @stack('scripts')
 </body>
 
 </html>
