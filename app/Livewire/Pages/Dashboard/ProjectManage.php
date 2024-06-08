@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Storage;
 
 class ProjectManage extends Component
 {
-    public function remove($id, $event)
+    public function remove($id)
     {
         $project = Project::find($id);
 
         Storage::delete($project->image);
         $project->delete();
-
+        $this->emit('projectDeleted');
     }
 
     #[Title('ProjectManage')]
