@@ -42,7 +42,7 @@
                                     <th data-priority="1">Name</th>
                                     <th data-priority="2">Description</th>
                                     <th data-priority="3">Skill</th>
-                                    <th data-priority="5">Date</th>
+                                    <th data-priority="5">Start Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -51,25 +51,30 @@
                                     @foreach ($projects as $project)
                                         <tr wire:key="tr-{{ $project->id }}" class="text-left">
                                             <td class="border-b border-solid border-zinc-400">
-                                                {{ $project->title }}</td>
+                                                {{ $project->title }}
+                                            </td>
                                             <td class="border-b border-solid border-zinc-400">
                                                 {{ $project->description }}
                                             </td>
-                                            <td class="border-b border-solid border-zinc-400">{{ $project->skill }}
+                                            <td class="border-b border-solid border-zinc-400">
+                                                {{ $project->skill }}
                                             </td>
                                             <td class="text-center border-b border-solid border-zinc-400">
-                                                {{ $project->created_at->format('Y.m.d') }}</td>
+                                                {{ $project->created_at->format('Y.m.d') }}
+                                            </td>
                                             <td class="text-center border-b border-solid border-zinc-400">
                                                 <i class="fas fa-edit text-blue-300 hover:text-blue-600 cursor-pointer"
-                                                    wire:key="edit-{{ $project->id }}"
                                                     wire:click="edit({{ $project->id }})"></i>
                                                 <i class="fas fa-times text-red-300 hover:text-red-600 pl-2 cursor-pointer"
-                                                    wire:key="delete-{{ $project->id }}"
-                                                    wire:click="$emit('remove', {{ $project->id }})"
+                                                    wire:click="remove({{ $project->id }})"
                                                     wire:confirm="Are you want to delete this project?"></i>
                                             </td>
                                         </tr>
                                     @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="5">No existing records found</td>
+                                    </tr>
                                 @endif
                             </tbody>
                         </table>
@@ -87,8 +92,8 @@
         <!--Datatables -->
         <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
         <script src="https://cdn.datatables.net/2.0.8/js/dataTables.jqueryui.js"></script>
-        {{-- <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script> --}}
-        {{-- <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.jqueryui.js"></script> --}}
+        <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+        <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.jqueryui.js"></script>
 
         <script>
             $(document).ready(function() {
@@ -103,14 +108,9 @@
                     autoWidth: false, // Disable auto column width calculation
                 });
 
-                // Reinitialize Livewire after DataTables has finished rendering
-                table.on('draw', function() {
-                    Livewire.rescan();
-                });
-
-                // Listen for Livewire event to redraw DataTable
-                Livewire.on('projectDeleted', () => {
-                    table.draw();
+                // Livewire hook to handle updates after DataTables draws
+                Livewire.hook('message.processed', (message, component) => {
+                    table.draw(); // Redraw DataTable after Livewire updates
                 });
 
                 document.addEventListener('livewire:load', function() {

@@ -14,7 +14,6 @@ class ProjectManage extends Component
 
         Storage::delete($project->image);
         $project->delete();
-        $this->emit('projectDeleted');
     }
 
     #[Title('ProjectManage')]

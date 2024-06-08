@@ -12,6 +12,8 @@
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 
+    @livewireStyles
+
     @stack('page_style')
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
