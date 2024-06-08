@@ -51,9 +51,6 @@
         }
     </script>
 
-    {{-- <link href="'../resources/css/app.css'" rel="stylesheet">
-    <script src="'../resources/css/app.js'"></script> --}}
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>

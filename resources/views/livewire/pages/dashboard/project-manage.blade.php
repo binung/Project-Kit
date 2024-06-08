@@ -105,14 +105,15 @@
     <script>
         $(document).ready(function() {
 
-            var table = $('#example').DataTable({
+            var table = $('#projectTable').DataTable({
                     responsive: true
                 })
                 .columns.adjust()
                 .responsive.recalc();
         });
     </script>
-    <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+
+    <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
 
         <div class="bg-gray-800 pt-3">
             <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
@@ -126,19 +127,23 @@
                 <!--Container-->
                 <div class="container w-full px-2 mx-auto">
 
-                    <!--Title-->
-                    {{-- <h1 class="flex items-center px-2 py-8 font-sans text-xl font-bold text-indigo-500 break-normal md:text-2xl">
-                Responsive <a class="mx-2 underline" href="https://datatables.net/">DataTables.net</a> Table
-            </h1> --}}
-                    <a href="/project_create" wire:navigate>
-                        <button
-                            class="px-6 py-3 mt-8 mb-4 text-xs font-medium leading-tight text-white uppercase transition duration-150 ease-in-out bg-blue-600 rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none active:shadow-lg">
-                            Create New Project
-                        </button>
-                    </a>
+                    <div class="flex">
+                        <a href="/project_create" wire:navigate>
+                            <button
+                                class="px-6 py-3 mt-8 mb-4 text-xs font-medium leading-tight text-white uppercase transition duration-150 ease-in-out bg-blue-600 rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none active:shadow-lg">
+                                Create New Project
+                            </button>
+                        </a>
+                        <!--Title-->
+                        <h1
+                            class="flex items-center px-4 py-8 font-sans text-xl font-bold text-indigo-500 break-normal md:text-2xl">
+                            Responsive <a class="mx-2 underline" href="https://datatables.net/">DataTables.net</a> Table
+                        </h1>
+                    </div>
+
                     <!--Card-->
-                    <div id='recipients' class="p-8 mt-6 bg-white rounded shadow lg:mt-0">
-                        <table id="example" class="stripe hover"
+                    <div class="p-8 mt-6 bg-white rounded shadow lg:mt-0">
+                        <table id="projectTable" class="stripe hover"
                             style="width:100%; padding-top: 1em; padding-bottom: 1em;">
                             <colgroup>
                                 <col width="17%">
@@ -157,173 +162,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Inertia</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, Inertia,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, API</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, RESTful API,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Inertia</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, Inertia,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, API</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, RESTful API,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Inertia</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, Inertia,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, API</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, RESTful API,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Inertia</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, Inertia,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, API</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, RESTful API,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, API</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, RESTful API,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, API</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, RESTful API,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, API</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, RESTful API,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, API</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, RESTful API,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, API</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, RESTful API,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, API</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, RESTful API,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, API</td>
-                                    <td class="border-b border-solid border-zinc-400">This project built with
-                                        Laravel, RESTful API,
-                                        React</td>
-                                    <td class="border-b border-solid border-zinc-400">Laravel, React, Tailwnd CSS,
-                                        Alpine.js, MySQL
-                                    </td>
-                                    <td class="text-center border-b border-solid border-zinc-400">2021.3.6</td>
-                                    <td class="text-center border-b border-solid border-zinc-400"></td>
-                                </tr>
-                            </tbody>
+                                @foreach ($projects as $project)
+                                    <tr>
+                                        <td class="border-b border-solid border-zinc-400">{{ $project->title }}</td>
+                                        <td class="border-b border-solid border-zinc-400">
+                                            {{ $project->description }}
+                                        </td>
+                                        <td class="border-b border-solid border-zinc-400">{{ $project->skill }}
+                                        </td>
+                                        <td class="text-center border-b border-solid border-zinc-400">
+                                            {{ $project->created_at->format('Y.m.d') }}</td>
+                                        <td class="text-center border-b border-solid border-zinc-400">
+                                            {{-- <i class="fas fa-edit text-blue-300 hover:text-blue-600 cursor-pointer"
+                                                wire:click="edit({{ $project->id }})"></i> --}}
+                                            <i class="fas fa-times text-red-300 hover:text-red-600 pl-2 cursor-pointer"
+                                                wire:key="del-{{ $project->id }}"
+                                                wire:click="remove({{ $project->id }}, $event)"
+                                                wire:confirm="Are you want to delete this project?"></i>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
+                            </tbody>
                         </table>
                     </div>
                     <!--/Card-->

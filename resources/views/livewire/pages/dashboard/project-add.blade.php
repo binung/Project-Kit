@@ -35,6 +35,16 @@
                                     <span class="text-xs text-red-500">{{ $message }}</span>
                                 @enderror
 
+                                <div class="space-y-8 pt-4 font-[sans-serif] mx-auto">
+                                    <input type="file"
+                                        class="w-full text-gray-500 font-medium text-base bg-gray-100 file:cursor-pointer cursor-pointer file:border-5 file:py-2.5 file:mr-4 file:bg-gray-800 file:hover:bg-gray-700 file:text-white rounded"
+                                        wire:model="image" />
+                                </div>
+
+                                @error('image')
+                                    <span class="text-xs text-red-500">{{ $message }}</span>
+                                @enderror
+
                                 <button type="submit"
                                     class="mt-5 tracking-wide font-semibold bg-[#E9522C] text-gray-100 w-full py-4 rounded-lg hover:bg-[#E9522C]/90 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                                     <svg class="h-4 w-8 text-white" width="24" height="24" viewBox="0 0 24 24"
@@ -53,4 +63,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        window.livewire.on('fileChoosen', () => {
+            let inputField = document.getElementById('image')
+            let file = inputField.files[0]
+            let reader = new FileReader();
+            reader.onloadend = () => {
+                window.livewire.emit('fileUpload', reader.result)
+            }
+            reader.readAsDataURL(file);
+
+        })
+    </script>
+
 </section>
