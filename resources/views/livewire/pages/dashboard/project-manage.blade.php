@@ -1,14 +1,16 @@
 <section class="w-full pt-12 bg-gray-100">
-    <!--Regular Datatables CSS-->
-    <link href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" rel="stylesheet">
-    <!--Responsive Extension Datatables CSS-->
-    <link href="https://cdn.datatables.net/2.0.8/css/dataTables.jqueryui.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.jqueryui.css" rel="stylesheet">
-    <style>
-        select {
-            width: 80px;
-        }
-    </style>
+    @push('page_style')
+        <!--Regular Datatables CSS-->
+        <link href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" rel="stylesheet">
+        <!--Responsive Extension Datatables CSS-->
+        <link href="https://cdn.datatables.net/2.0.8/css/dataTables.jqueryui.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.jqueryui.css" rel="stylesheet">
+        <style>
+            select {
+                width: 80px;
+            }
+        </style>
+    @endpush
 
     <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
 
@@ -63,7 +65,7 @@
                                                     wire:click="edit({{ $project->id }})"></i>
                                                 <i class="fas fa-times text-red-300 hover:text-red-600 pl-2 cursor-pointer"
                                                     wire:key="delete-{{ $project->id }}"
-                                                    wire:click="remove({{ $project->id }})"
+                                                    wire:click="$emit('remove', {{ $project->id }})"
                                                     wire:confirm="Are you want to delete this project?"></i>
                                             </td>
                                         </tr>
@@ -85,8 +87,8 @@
         <!--Datatables -->
         <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
         <script src="https://cdn.datatables.net/2.0.8/js/dataTables.jqueryui.js"></script>
-        <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
-        <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.jqueryui.js"></script>
+        {{-- <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script> --}}
+        {{-- <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.jqueryui.js"></script> --}}
 
         <script>
             $(document).ready(function() {
@@ -109,6 +111,15 @@
                 // Listen for Livewire event to redraw DataTable
                 Livewire.on('projectDeleted', () => {
                     table.draw();
+                });
+
+                document.addEventListener('livewire:load', function() {
+                    Livewire.on('remove', projectId => {
+                        // Handle the 'remove' event here
+                        console.log('Remove project with ID:', projectId);
+
+                        // Example: Perform an action like deleting the project
+                    });
                 });
             });
         </script>
