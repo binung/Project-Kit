@@ -11,36 +11,40 @@
             <div class="flex flex-col items-center w-full px-5">
                 <div class="w-full p-5 rounded-md xl:max-w-3xl sm:p-10">
                     <h1 class="text-xl font-semibold text-center text-black sm:text-3xl">
-                        Create New Project
+                        <span class="text-blue-600 italic">Let's Create</span>
+                        <span class="text-red-600 text-5xl italic">NEW PROJECT</span>
                     </h1>
                     <div class="w-full mt-8">
-                        <div class="flex flex-col max-w-xs gap-4 mx-auto sm:max-w-md md:max-w-lg">
+                        <div class="flex flex-col max-w-md gap-4 mx-auto sm:max-w-md md:max-w-2xl">
                             <form wire:submit.prevent="store">
                                 <input
                                     class="w-full px-5 py-3 mt-4 text-sm font-medium text-black placeholder-gray-500 border-2 border-transparent rounded-lg focus:outline-none focus:border-2 focus:outline focus:border-white"
-                                    type="text" placeholder="Title" wire:model="title" />
+                                    type="text" placeholder="Project title(ex: Laravel Sample Project)"
+                                    wire:model="title" />
                                 @error('title')
                                     <span class="text-xs text-red-500">{{ $message }}</span>
                                 @enderror
-                                <input
-                                    class="w-full px-5 py-3 mt-4 text-sm font-medium placeholder-gray-500 border-2 border-transparent rounded-lg focus:outline-none focus:border-2 focus:outlinetext-black focus:border-white"
-                                    type="text" placeholder="Description" wire:model="description" />
+                                <textarea
+                                    class="w-full px-5 py-3 mt-4 text-sm font-medium placeholder-gray-500 border-2 border-transparent rounded-lg focus:outline-none focus:border-2 focus:outlinetext-black focus:border-white h-[15vh]"
+                                    placeholder="About project(ex: This project built with Laravel, Inertia, React)" cols="10"
+                                    wire:model="description"></textarea>
                                 @error('description')
                                     <span class="text-xs text-red-500">{{ $message }}</span>
                                 @enderror
                                 <input
                                     class="w-full px-5 py-3 mt-4 text-sm font-medium placeholder-gray-500 border-2 border-transparent rounded-lg focus:outline-none focus:border-2 focus:outlinetext-black focus:border-white"
-                                    type="text" placeholder="Skill" wire:model="skill" />
+                                    type="text" placeholder="Skill(ex: Laravel, livewire, tailwind css, ...)"
+                                    wire:model="skill" />
                                 @error('skill')
                                     <span class="text-xs text-red-500">{{ $message }}</span>
                                 @enderror
 
                                 <div class="space-y-8 pt-4 font-[sans-serif] mx-auto">
                                     <input type="file"
-                                        class="w-full text-gray-500 font-medium text-base bg-gray-100 file:cursor-pointer cursor-pointer file:border-5 file:py-2.5 file:mr-4 file:bg-gray-800 file:hover:bg-gray-700 file:text-white rounded"
+                                        class="w-full text-gray-500 font-medium text-base bg-gray-100 file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-gray-800 file:hover:bg-gray-700 file:text-white rounded border border-solid"
                                         wire:model="image" />
-                                </div>
 
+                                </div>
                                 @error('image')
                                     <span class="text-xs text-red-500">{{ $message }}</span>
                                 @enderror
@@ -63,18 +67,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        window.livewire.on('fileChoosen', () => {
-            let inputField = document.getElementById('image')
-            let file = inputField.files[0]
-            let reader = new FileReader();
-            reader.onloadend = () => {
-                window.livewire.emit('fileUpload', reader.result)
-            }
-            reader.readAsDataURL(file);
-
-        })
-    </script>
-
 </section>

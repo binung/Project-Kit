@@ -28,13 +28,11 @@ class ProjectAdd extends Component
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
             'skill' => ['required', 'string'],
-            'image' => ['required', 'image|max:1024'],
+            'image' => 'image|max:1024',
         ]);
 
-        $image = time().'.'.$this->image->extension();
-        $path = Storage::putFile('public/profiles', $this->image);
-
-        Project::create(['title'=>$this->title, 'description'=>$this->description, 'skill'=>$this->skill, 'image'=>$path]);
+        $image = $this->storeImage();
+        Project::create(['title'=>$this->title, 'description'=>$this->description, 'skill'=>$this->skill, 'image'=>$image]);
 
         return $this->redirect(route('project_manage'), navigate: true);
     }
@@ -45,21 +43,9 @@ class ProjectAdd extends Component
             return null;
         }
 
-        // $img   = Image::make($this->image)->encode('jpg');
-        $name  = Str::random() . '.jpg';
-        Storage::disk('public')->put($name, $this->image);
-        return $name;
+        $image = Storage::putFile('public/profiles', $this->image);
 
-
-        // $name  = Str::random() . '.jpg';
-        // $image = Image::make($this->image->getRealPath());
-        // $image->resize(300, null, function($constraint){
-        //     $constraint->aspectRatio();
-        // });
-
-        // $image->save(storage_path('app/public/photos').'/'.$name);
-        // return $name;
-
+        return $image;
     }
 
     #[Title('Project-Create')]

@@ -5,6 +5,10 @@
     <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
 
     <style>
+        table {
+            font: 90%/1.5em system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif !important;
+        }
+
         /*Overrides for Tailwind CSS */
 
         /*Form fields*/
@@ -117,7 +121,7 @@
 
         <div class="bg-gray-800 pt-3">
             <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
-                <h1 class="font-bold pl-2">Project Manage</h1>
+                <h1 class="font-bold pl-2">Project Add</h1>
             </div>
         </div>
 
@@ -153,7 +157,7 @@
                                 <col width="5%">
                             </colgroup>
                             <thead>
-                                <tr>
+                                <tr class="bg-cyan-600">
                                     <th data-priority="1">Name</th>
                                     <th data-priority="2">Description</th>
                                     <th data-priority="3">Skill</th>
@@ -173,8 +177,9 @@
                                         <td class="text-center border-b border-solid border-zinc-400">
                                             {{ $project->created_at->format('Y.m.d') }}</td>
                                         <td class="text-center border-b border-solid border-zinc-400">
-                                            {{-- <i class="fas fa-edit text-blue-300 hover:text-blue-600 cursor-pointer"
-                                                wire:click="edit({{ $project->id }})"></i> --}}
+                                            <i class="fas fa-edit text-blue-300 hover:text-blue-600 cursor-pointer"
+                                                wire:key="up-{{ $project->id }}"
+                                                wire:click="edit({{ $project->id }})"></i>
                                             <i class="fas fa-times text-red-300 hover:text-red-600 pl-2 cursor-pointer"
                                                 wire:key="del-{{ $project->id }}"
                                                 wire:click="remove({{ $project->id }}, $event)"
